@@ -33,8 +33,23 @@ public class LogInTests {
         driver.get("http://secure.smartbearsoftware.com/samples/testcomplete12/WebOrders/login.aspx");
         driver.findElement(By.id("ctl00_MainContent_username")).sendKeys("Tester");
         driver.findElement(By.id("ctl00_MainContent_password")).sendKeys("test" + Keys.ENTER);
+
         String title = driver.getTitle();
         Assert.assertEquals(title, "Web Orders");
+
+        String errorMessage = driver.findElement(By.id("ctl100_MainContent_status")).getText();
+        Assert.assertEquals(errorMessage, "Invalid Login or Password.");
+    }
+
+    @Test
+    public void negativeLogInTest() {
+
+        driver.get("http://secure.smartbearsoftware.com/samples/testcomplete12/WebOrders/login.aspx");
+        driver.findElement(By.id("ctl00_MainContent_username")).sendKeys("Tester2");
+        driver.findElement(By.id("ctl00_MainContent_password")).sendKeys("test" + Keys.ENTER);
+        String errorMessage = driver.findElement(By.id("ctl00_MainContent_status")).getText();
+        Assert.assertEquals(errorMessage, "Invalid Login or Password.");
+
     }
 
     @Test
